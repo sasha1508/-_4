@@ -1,0 +1,6 @@
+@GB_Market_HostAddress = http://localhost:5135
+
+GET {{GB_Market_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
