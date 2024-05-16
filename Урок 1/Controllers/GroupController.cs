@@ -7,23 +7,23 @@ namespace GB_Market.Controllers
 {
     [ApiController]
     [Microsoft.AspNetCore.Components.Route("[controller]")]
-    public class ProductController : ControllerBase
+    public class GroupController : ControllerBase
     {
-        [HttpPost(template: "addproduct")]
-        public ActionResult AddProduct(string name, string description)
+        [HttpPost(template: "addgroup")]
+        public ActionResult AddGroup(string name, string description)
         {
             try
             {
                 using (var ctx = new ProductContext())
                 {
                     //Проверка повторяемости имени:
-                    if (ctx.Products.Count(x => x.Name.ToLower() == name.ToLower()) > 0)
+                    if (ctx.ProductGroup.Count(x => x.Name.ToLower() == name.ToLower()) > 0)
                     {
                         return StatusCode(409);
                     }
                     else
                     {
-                        ctx.Products.Add(new Product { Name = name, Description = description});
+                        ctx.ProductGroup.Add(new ProductGroup { Name = name, Description = description });
                         ctx.SaveChanges();
                     }
                 }
@@ -36,16 +36,16 @@ namespace GB_Market.Controllers
             }
         }
 
-        [HttpDelete(template: "deleteproduct")]
-        public ActionResult DeleteProduct(int Id)
+        [HttpDelete(template: "deletegroup")]
+        public ActionResult DeleteGroup(int Id)
         {
             try
             {
                 using (var ctx = new ProductContext())
                 {
 
-                    Product product = ctx.Products.First(x => x.Id == Id);
-                    ctx.Products.Remove(product);
+                    ProductGroup productGroup = ctx.ProductGroup.First(x => x.Id == Id);
+                    ctx.ProductGroup.Remove(productGroup);
                     ctx.SaveChanges();
 
                 }
@@ -58,14 +58,14 @@ namespace GB_Market.Controllers
             }
         }
 
-        [HttpGet(template: "getproducts")]
-        public ActionResult<IEnumerable<Product>> GetProducts()
+        [HttpGet(template: "getgroups")]
+        public ActionResult<IEnumerable<ProductGroup>> GetGroups()
         {
             try
             {
                 using (var ctx = new ProductContext())
                 {
-                    var list = ctx.Products.Select(x => new Product { Id = x.Id, Name = x.Name, Description = x.Description }).ToList();
+                    var list = ctx.ProductGroup.Select(x => new ProductGroup { Id = x.Id, Name = x.Name, Description = x.Description }).ToList();
                     return list;
                 }
             }
@@ -76,3 +76,4 @@ namespace GB_Market.Controllers
         }
     }
 }
+
