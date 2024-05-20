@@ -3,7 +3,10 @@ using Market.DB;
 using Market.DTO;
 using Market.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
+using Autofac;
 
 namespace Market.Controllers
 {
@@ -12,6 +15,8 @@ namespace Market.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductRepo _repo;
+       // private ProductContext _context;
+
         public ProductController(IProductRepo repo)
         {
             _repo = repo;
@@ -37,6 +42,32 @@ namespace Market.Controllers
             return Ok(_repo.GetProducts());
             //return Ok("Ok");
         }
+
+        private string GetCsv(IEnumerable<ProductViewModel> products) 
+        {
+            StringBuilder sb = new();
+
+            foreach (var product in products)
+            {
+                sb.AppendLine(product.Name + ";" + product.Description);
+            }
+            return sb.ToString();
+        }
+
+        [HttpGet(template:"GetProductCSV")]
+        public FileContentResult GetProductCSV()
+        {
+            using (var _context = new ProductContext())
+            {
+                var produkt = _context.Products.Select(x => new ProductViewModel {Name = x.Name, Description = x.Description }).ToList();
+                var content = GetCsv(produkt);
+                return File (new System.Text.UTF8Encoding().GetBytes(content), "text/csv", "report.csv");
+            }
+
+
+   
+        }
+
 
         [HttpDelete(template: "deleteproducts")]
         public void DeleteProducts(string name)
@@ -69,20 +100,14 @@ namespace Market.Controllers
                     ctx.SaveChanges();
                 }
             }
-
-
-
-
         }
 
 
         [HttpPut(template: "setprice")]
         public void UpdatePrice(string name, int price)
         {
-
             using (var ctx = new ProductContext())
             {
-
                 if (ctx.Products.Count(x => x.Name.ToLower() == name.ToLower()) > 0)
                 {
                     var product = ctx.Products.FirstOrDefault(x => x.Name.ToLower() == name.ToLower());
@@ -90,9 +115,7 @@ namespace Market.Controllers
 
                     ctx.SaveChanges();
                 }
-
             }
-
         }
 
 

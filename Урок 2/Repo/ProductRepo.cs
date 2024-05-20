@@ -11,11 +11,13 @@ namespace Market.Repo
     {
         private readonly IMapper _mapper;
         private IMemoryCache _memoryCache;
+
         public ProductRepo(IMapper mapper, IMemoryCache memoryCache)
         {
             _mapper = mapper;
             _memoryCache = memoryCache;
         }
+
         public void AddProduct(ProductViewModel productViewModel)
         {
             using (var context = new ProductContext())
