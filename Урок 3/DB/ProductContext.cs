@@ -1,17 +1,21 @@
 ﻿using MarketQL.Model;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace MarketQL.DB
 {
     public class ProductContext : DbContext
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Storage> Storages { get; set; }
+        public DbSet<ProductStorage> ProductStorage { get; set; }
         public DbSet<ProductGroup> ProductGroup { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLazyLoadingProxies().UseNpgsql("Host=localhost;Port=5432;Username=test;Password=Test1234;Database=Market");
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Product>(entity =>
@@ -60,6 +64,11 @@ namespace MarketQL.DB
 
                 entity.HasOne(ps => ps.Product).WithMany(s => s.Storages).HasForeignKey(ps => ps.ProductId);
 
+                //entity.ToTable("ProductStorage");
+
+                //entity.Property(e => e.ProductId).HasColumnName("ProductId");
+                //entity.Property(e => e.StorageId).HasColumnName("StorageId");
+                //entity.Property(e => e.Count).HasColumnName("Count");
             });
             //dotnet ef migrations add InitialCreate
             //dotnet ef database update

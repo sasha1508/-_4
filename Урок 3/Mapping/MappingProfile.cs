@@ -11,6 +11,7 @@ namespace MarketQL.Mapping
             CreateMap<Product, ProductViewModel>().ReverseMap();
             CreateMap<ProductGroup, ProductGroupViewModel>().ReverseMap();
             CreateMap<Storage, StorageViewModel>().ReverseMap();
+            CreateMap<ProductStorage, ProductStorageViewModel>().ReverseMap();
         }
     }
 }

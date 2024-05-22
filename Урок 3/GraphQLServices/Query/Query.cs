@@ -7,5 +7,6 @@ namespace MarketQL.GraphQLServices.Query
     public class Query
     {
         public IEnumerable<ProductViewModel> GetProducts([Service] ProductRepo productRepo) => productRepo.GetProducts();
+        public IEnumerable<StorageViewModel> GetStorages([Service] StorageRepo storageRepo) => storageRepo.GetStorages();
     }
 }

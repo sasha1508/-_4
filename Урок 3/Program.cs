@@ -20,10 +20,11 @@ namespace MarketQL
             builder.Services.AddSingleton<IProductRepo, ProductRepo>().AddGraphQLServer().AddQueryType<Query>().AddMutationType<Mutation>();
             builder.Services.AddSingleton<IStorageRepo, StorageRepo>();
             builder.Services.AddSingleton<IProductGroupRepo, ProductGroupRepo>();
+            builder.Services.AddSingleton<IProductStorageRepo, ProductStorageRepo>();
 
 
 
-           var app = builder.Build();
+            var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
             {
