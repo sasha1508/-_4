@@ -32,16 +32,16 @@ namespace MarketQL.DB
             });
 
             modelBuilder.Entity<ProductGroup>(entity =>
-            { 
+            {
 
-            entity.HasKey(e => e.Id).HasName("productgroup_pkey");
+                entity.HasKey(e => e.Id).HasName("productgroup_pkey");
 
-            entity.ToTable("productgroups");
+                entity.ToTable("productgroups");
 
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Name).HasColumnName("name");
-             entity.Property(e => e.Description).HasColumnName("description");
-             });
+                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Name).HasColumnName("name");
+                entity.Property(e => e.Description).HasColumnName("description");
+            });
 
             modelBuilder.Entity<Storage>(entity =>
             {

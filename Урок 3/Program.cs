@@ -18,6 +18,7 @@ namespace MarketQL
             builder.Services.AddMemoryCache();
             builder.Services.AddAutoMapper(typeof(MappingProfile));
             builder.Services.AddSingleton<IProductRepo, ProductRepo>().AddGraphQLServer().AddQueryType<Query>().AddMutationType<Mutation>();
+            builder.Services.AddSingleton<IStorageRepo, StorageRepo>();
             builder.Services.AddSingleton<IProductGroupRepo, ProductGroupRepo>();
 
 

@@ -41,7 +41,7 @@ namespace MarketQL.Repo
 
         public IEnumerable<ProductViewModel> GetProducts()
         {
-            if (_memoryCache.TryGetValue("products", out List<ProductViewModel> productsCache))
+            if (_memoryCache.TryGetValue("products", out List<ProductViewModel>? productsCache))
             {
                 return productsCache;
             }
