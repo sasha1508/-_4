@@ -1,0 +1,6 @@
+@SecurityMarket_HostAddress = http://localhost:5191
+
+GET {{SecurityMarket_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
