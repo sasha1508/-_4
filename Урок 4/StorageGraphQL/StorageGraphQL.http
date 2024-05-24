@@ -1,0 +1,6 @@
+@StorageGraphQL_HostAddress = http://localhost:5239
+
+GET {{StorageGraphQL_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
